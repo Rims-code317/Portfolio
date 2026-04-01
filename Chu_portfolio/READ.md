@@ -1,8 +1,4 @@
-nano README.md
-```
 
-Once nano opens, paste this entire content:
-```
 # 🚀 Portfolio — John Lloyd B. Chu
 
 A personal developer portfolio built with Django, deployed on PythonAnywhere.
