@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ info.name }} - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-firstname">{{ info.name }}</p>
+        <h1 class="hero-lastname">{{ info.title }}</h1>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="about-container">
+        <div class="about-text">
+            <h2>ABOUT</h2>
+            <p class="about-name">{{ info.name }}</p>
+            <p class="about-bio">{{ info.bio }}</p>
+        </div>
+        <div class="about-image">
+            {% if info.profile_image %}
+            <img src="{{ info.profile_image.url }}" alt="{{ info.name }}">
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+    <div class="resume-container">
+        <div class="resume-col">
+            <h3>SOFTWARE SKILLS</h3>
+            {% for skill in skills %}
+            <div class="skill-item">
+                <span>{{ skill.name }}</span>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: {{ skill.percentage }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="resume-col">
+            <h3>WHAT CAN I DO?</h3>
+            <div class="what-i-do">
+                <ul>
+                    <li>Build simple and responsive websites using HTML and CSS</li>
+                    <li>Create basic interactive features using JavaScript</li>
+                    <li>Develop beginner-level programs using Python</li>
+                    <li>Design clean and user-friendly layouts</li>
+                    <li>Solve basic programming problems and logic challenges</li>
+                    <li>Debug and fix simple code errors</li>
+                    <li>Continuously learn new technologies and improve my skills</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <div class="projects-container">
+        <h2 class="section-title">PROJECTS</h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-dot"></div>
+                <div class="project-info">
+                    <h4>{{ project.title }}</h4>
+                    <p>{{ project.description }}</p>
+                    <span class="project-tools">{{ project.tools }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+    <div class="education-container">
+        <h2 class="section-title">EDUCATION</h2>
+        <div class="education-grid">
+            {% for edu in education %}
+            <div class="education-card">
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="edu-info">
+                    <h4>{{ edu.degree }}</h4>
+                    <p>{{ edu.school }}</p>
+                    <span>{{ edu.year }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h2 class="section-title">CONTACT ME</h2>
+    <div class="contact-container">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p>{{ contact.email }}</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-facebook"></i>
+                <div>
+                    <h4>Facebook</h4>
+                    <p>{{ contact.facebook }}</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-github"></i>
+                <div>
+                    <h4>GitHub</h4>
+                    <p>{{ contact.github }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-white">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 {{ info.name }}. All rights reserved.</p>
+</footer>
+
+<script src="{% static 'main.js' %}"></script>
+</body>
+</html>
